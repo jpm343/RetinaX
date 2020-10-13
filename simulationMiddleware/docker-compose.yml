@@ -1,0 +1,38 @@
+version: "3.1"
+
+services:
+  tomcatserver:
+    image: tomcat
+    depends_on:
+      - mongodb
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/simulatorMiddleware-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/ROOT.war
+      - ./target/simulatorMiddleware-0.0.1-SNAPSHOT:/usr/local/tomcat/webapps/ROOT
+    deploy:
+      restart_policy:
+        condition: unless-stoped
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27018:27018"
+    deploy:
+      restart_policy:
+        condition: unless-stoped
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  neurone-ui:
+    image: neurone-ui:latest
+    depends_on:
+      - tomcatserver
+    ports:
+      - "8181:80"

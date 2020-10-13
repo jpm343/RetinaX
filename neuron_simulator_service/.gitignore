@@ -1,0 +1,12 @@
+x86_64/
+*.pyc
+.nfs*
+*.DS*
+.DS*
+*.sublime-workspace
+*.sublime-project
+*.c
+*.o
+nrnmech.dll
+*.tmp
+results/

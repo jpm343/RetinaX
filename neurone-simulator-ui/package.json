@@ -1,0 +1,52 @@
+{
+  "name": "simulator-ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@saeris/vue-spinners": "^1.0.8",
+    "apexcharts": "^3.20.0",
+    "axios": "^0.19.2",
+    "chart.js": "^2.9.3",
+    "core-js": "^3.6.4",
+    "css-loader": "^3.4.2",
+    "dygraphs": "^2.1.0",
+    "heatmap.js": "^2.0.5",
+    "moment": "^2.27.0",
+    "nprogress": "^0.2.0",
+    "typeface-roboto": "^0.0.75",
+    "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.0",
+    "vue-heatmapjs": "^1.5.0-0",
+    "vue-multiselect": "^2.1.6",
+    "vue-perfect-scrollbar": "^0.2.1",
+    "vue-router": "^3.1.5",
+    "vuelidate": "^0.7.5",
+    "vuetify": "^2.2.18",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-plugin-router": "~4.2.0",
+    "@vue/cli-plugin-vuex": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-vue": "^6.1.2",
+    "prettier": "^1.19.1",
+    "sass": "^1.19.0",
+    "sass-loader": "^8.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "vue-cli-plugin-vuetify": "~2.0.5",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.3.0"
+  }
+}

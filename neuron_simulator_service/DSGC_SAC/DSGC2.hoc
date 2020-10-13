@@ -1,0 +1,148 @@
+// DSRGC template
+
+begintemplate DSGC2
+public soma, dend0, dend1, axon, all
+public init, geom, subsets, setv
+
+create soma, dend0[1], dend1[1], axon
+objref all
+
+proc init() {
+    geom($1,$2,$3,$4,$5)
+    //  $1 = radius of DSRGC
+    //  $2 = x position
+    //  $3 = y position
+    //  $4 = Proximal dendrite diameter
+    //  $5 = Distal (half-distance) dendrite diameter
+    all = new SectionList()
+    forall {all.append()}
+}
+
+proc geom() {local ndend
+    // morphological parameters
+    ndend       = 4
+    radius      = $1 // dendritic tree radius
+    x           = $2
+    y           = $3
+    nbranches   = 2
+    ldend       = radius / nbranches
+    branchDist  = 0.5 // Relative position of bifurcation
+    diamProxi   = $4
+    diamDistal  = $5
+
+    // Create soma
+    create soma
+    soma {
+        nseg        = 5
+        diam        = 10
+        L           = 21
+        insert rgcchan
+        gnabar_rgcchan = 0.072 // 0.004
+        gkbar_rgcchan  = 0.05
+        gcabar_rgcchan = 0.001 // 0.000014
+        ena            = 60
+        ek             = -100
+        eca            = 90
+        insert pas
+        g_pas  = 0.0001
+        e_pas  = -80
+        // Small branch between soma and dendrites
+        pt3dclear()
+        pt3dadd(x,y,0,1.5)
+        pt3dadd(x,y,-10,2)
+        pt3dadd(x,y,-11,10)
+        pt3dadd(x,y,-21,10)
+
+    }
+
+    // Dendrite  proximal branches
+    create dend0[ndend]
+
+    for i=0, ndend-1 dend0[i] {
+        nseg    = 3
+        L       = ldend
+        insert rgcchan
+        gnabar_rgcchan = 0.079 // 0.035
+        gkbar_rgcchan  = 0.03 // 0.05
+        gcabar_rgcchan = 0.001 // 0.000014
+        ena            = 60
+        ek             = -100
+        eca            = 90
+        insert pas
+        g_pas   = 0.00003
+        e_pas   = -75
+        theta   = i*2*PI / ndend
+        pt3dclear()
+        pt3dadd(0,0,0,diamProxi)
+        pt3dadd(ldend * cos(theta), ldend*sin(theta), 0, diamDistal)
+        connect dend0[i](0), soma(0)
+    }
+
+    // Dendrites, distal branches
+    create dend1[ndend*2]
+    for i=0, ndend*2-1 dend1[i] {
+        nseg    = 3
+        L       = ldend
+        insert rgcchan
+        gnabar_rgcchan = 0.079 // 0.035
+        gkbar_rgcchan  = 0.03 // 0.05
+        gcabar_rgcchan = 0.001 // 0.000014
+        ena            = 60
+        ek             = -100
+        eca            = 90
+        insert pas
+        g_pas   = 0.00003
+        e_pas   = -75
+        theta1  = int(i / 2) * 2 * PI / ndend
+        theta2  = i * PI / ndend - PI / (2 * ndend)
+        pt3dclear()
+        pt3dadd(ldend*cos(theta1), ldend*sin(theta1), 0, diamDistal)
+        pt3dadd(radius*cos(theta2), radius*sin(theta2), 0, diamDistal)
+        connect dend1[i](0), dend0[int(i/2)](1)
+    }
+
+
+    // Create axon
+    create axon
+    axon{
+        L       = 1000
+        diam    = 1
+        nseg    = 21
+        pt3dclear()
+        pt3dadd(0,0,-21,1)  //desde el principio, diametro 1
+        pt3dadd(0,0,-1021,1)
+        insert rgcchan
+        gnabar_rgcchan = 0.124 // 0.1
+        gkbar_rgcchan  = 0.05 // 0.02
+        gcabar_rgcchan = 0.0
+        ena            = 60
+        ek             = -100
+        eca            = 90
+        insert pas
+        g_pas   = 0.0001
+        e_pas   = -80
+    }
+    connect axon(0), soma(1)
+    define_shape()
+    forall Ra=200
+}
+
+proc setv(){
+    // forall v = $1
+    if (numarg()<2) {
+        vdend = $1
+        vsoma = $1        
+        vaxon = $1        
+    }else{
+        vdend = $1
+        vsoma = $2
+        vaxon = $3        
+    }
+    forsec "soma" v = vsoma
+    forsec "axon" {
+        for (x) v(x) = vsoma + (vaxon - vsoma) * x
+    } 
+    forsec "dend" v = vdend
+}
+
+endtemplate DSGC2

@@ -1,0 +1,60 @@
+begintemplate SAC
+  public soma, dend
+  public init, geom, setv
+
+  create soma, dend[1]
+
+  proc init() {
+
+  	geom($1,$2,$3,$4,$5,$6,$7)
+//	$1 = number of dendrites
+//	$2 = dendrite length (radius of SAC)
+//	$3 = x position of soma
+//	$4 = y position of soma
+//	$5 = number of segments (nseg) of each dendrite
+//  $6 = proximal diameter
+//  $7 = distal diameter
+
+  }
+  // Soma morphology
+  create soma
+  proc geom() {local ndend
+    ndend = $1
+    x = $3
+    y = $4
+    soma {
+  		nseg = 2		    //soma # segments
+  		Ra = 250
+  		diam = 10		    //soma diameter (um)
+  		insert pas	    //passive soma properties
+  		g_pas = 0.00005	//leak conductance (S/cm2)
+  		e_pas = -60		  //leak reversal potential (mV)
+  		pt3dclear()		  //soma position
+		  pt3dadd(x, y, 0, 1)  //(x, y, z) diameter
+		  pt3dadd(x, y, -10, 1)
+		  pt3dadd(x, y, -11, 10)	//smaller diameter branch in connection with dendrites
+		  pt3dadd(x, y, -21, 10)
+    }
+	// Dendrites morphology
+  	create dend[ndend]
+  	ldend = $2
+  	for i=0,ndend-1 dend[i] {
+  	 	nseg = $5	//dendrite # segments
+  		Ra = 250	//axial resistivity
+  		L = ldend	//dendrite length
+    	insert pas
+  		g_pas = 0.00005	//leak conductance as in soma
+  		e_pas = -60	//leak reversal potential as in soma
+  		theta = i*2*PI/ndend
+  		pt3dclear()
+  		pt3dadd(0,0,0,$6)
+  		pt3dadd(ldend*cos(theta),ldend*sin(theta),0,$7)
+ 	   	connect dend[i](0), soma(1)
+  	}
+  }
+
+  proc setv() {
+    forall v = $1
+  }
+
+endtemplate SAC
