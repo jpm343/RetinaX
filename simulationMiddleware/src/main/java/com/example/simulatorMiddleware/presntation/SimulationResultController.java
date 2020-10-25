@@ -21,6 +21,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.util.*;
@@ -32,7 +33,8 @@ import static java.util.Map.entry;
 @CrossOrigin(origins = "*")
 public class SimulationResultController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimulationResultController.class);
-    private static final String pythonURI = "http://localhost:5000/api/v1/resources/setparams";
+    @Value("${simulator.uri}")
+    private String pythonURI;
 
     @Autowired
     private SimulationResultRepository repository;

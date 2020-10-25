@@ -1,0 +1,36 @@
+version: "3.1"
+
+services:
+  simulatorservice:
+    build: neuron_simulator_service/.
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+
+  mongodb:
+    image: mongo
+    expose:
+      - "27017"
+    volumes:
+      - "./data:/data/db"
+
+  tomcatserver:
+    image: tomcat
+    depends_on:
+      - mongodb
+      - simulatorservice
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./simulationMiddleware/target/simulatorMiddleware-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/ROOT.war
+      - ./simulationMiddleware/target/simulatorMiddleware-0.0.1-SNAPSHOT:/usr/local/tomcat/webapps/ROOT
+
+  neurone-ui:
+    build: neurone-simulator-ui/.
+    depends_on:
+      - tomcatserver
+    ports:
+      - "8181:80"
