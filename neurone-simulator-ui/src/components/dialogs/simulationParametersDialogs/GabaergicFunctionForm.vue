@@ -7,7 +7,7 @@
             <v-icon icon="mdi-function-variant" color="white"
               >mdi-function-variant</v-icon
             > </v-avatar
-          >Gabaeric function parameters
+          >Gabaergic function parameters
           <v-spacer />
           <v-icon v-if="gabaericDone" color="success">mdi-check-outline</v-icon>
           <template v-slot:actions>
@@ -23,7 +23,7 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Gabaeric function</span>
+          <span class="headline">Gabaergic function</span>
         </v-card-title>
 
         <v-card-text>

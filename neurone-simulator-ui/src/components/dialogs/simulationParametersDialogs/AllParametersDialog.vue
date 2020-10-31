@@ -164,7 +164,7 @@
       </v-card>
       <v-card>
         <v-card-title>
-          <span class="headline">Gabaeric function</span>
+          <span class="headline">Gabaergic function</span>
         </v-card-title>
 
         <v-card-text>

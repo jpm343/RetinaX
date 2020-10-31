@@ -145,7 +145,7 @@
     <base-line-chart
       v-if="!loading && !comesFromHistory"
       yAxisLabel="prueba"
-      graphTitle="Temporal evolution of varaible"
+      graphTitle="Temporal evolution of variable"
       id="1"
       type="temporalEvolution"
     />
