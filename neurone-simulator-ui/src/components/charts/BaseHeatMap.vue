@@ -135,7 +135,7 @@ export default {
   props: {},
   components: {
     //LineChart,
-    HashLoader,
+    HashLoader
   },
   data() {
     return {
@@ -145,115 +145,115 @@ export default {
         {
           paramKey: "ndend",
           paramLocation: "amacrine",
-          paramDisplay: "Dendrites number",
+          paramDisplay: "Dendrites number"
         },
         {
           paramKey: "dendseg",
           paramLocation: "amacrine",
-          paramDisplay: "Dendrites segments",
+          paramDisplay: "Dendrites segments"
         },
         {
           paramKey: "diam_min",
           paramLocation: "amacrine",
-          paramDisplay: "Minimum dendrite diameter",
+          paramDisplay: "Minimum dendrite diameter"
         },
         {
           paramKey: "diam_max",
           paramLocation: "amacrine",
-          paramDisplay: "Maximum dendrite diameter",
+          paramDisplay: "Maximum dendrite diameter"
         },
         {
           paramKey: "area_thresh",
           paramLocation: "amacrine",
-          paramDisplay: "Threshold of area overlap for SAC-SAC synapse",
+          paramDisplay: "Threshold of area overlap for SAC-SAC synapse"
         },
         {
           paramKey: "k1",
           paramLocation: "gabaeric",
-          paramDisplay: "K1 variable",
+          paramDisplay: "K1 variable"
         },
         {
           paramKey: "k2",
           paramLocation: "gabaeric",
-          paramDisplay: "K2 variable",
+          paramDisplay: "K2 variable"
         },
         {
           paramKey: "th1",
           paramLocation: "gabaeric",
-          paramDisplay: "TH1 variable",
+          paramDisplay: "TH1 variable"
         },
         {
           paramKey: "th2",
           paramLocation: "gabaeric",
-          paramDisplay: "TH2 variable",
+          paramDisplay: "TH2 variable"
         },
         {
           paramKey: "gabaGmin",
           paramLocation: "gabaeric",
-          paramDisplay: "Minimum GABA conductance",
+          paramDisplay: "Minimum GABA conductance"
         },
         {
           paramKey: "gabaGmax",
           paramLocation: "gabaeric",
-          paramDisplay: "Maximum GABA conductance",
+          paramDisplay: "Maximum GABA conductance"
         },
         {
           paramKey: "d_is",
           paramLocation: "bipolar",
-          paramDisplay: "Distance between synaptic input",
+          paramDisplay: "Distance between synaptic input"
         },
         {
           paramKey: "excGmax",
           paramLocation: "bipolar",
-          paramDisplay: "Maximum excitatory conductance",
+          paramDisplay: "Maximum excitatory conductance"
         },
         {
           paramKey: "excGmin",
           paramLocation: "bipolar",
-          paramDisplay: "Minimum excitatory conductance",
+          paramDisplay: "Minimum excitatory conductance"
         },
         {
           paramKey: "bar_speed",
           paramLocation: "stimmulus.stim_param",
-          paramDisplay: "bar_speed",
+          paramDisplay: "bar_speed"
         },
         {
           paramKey: "bar_width",
           paramLocation: "stimmulus.stim_param",
-          paramDisplay: "bar_width",
+          paramDisplay: "bar_width"
         },
         {
           paramKey: "bar_x_init",
           paramLocation: "stimmulus.stim_param",
-          paramDisplay: "bar_x_init",
+          paramDisplay: "bar_x_init"
         },
         {
           paramKey: "t_stop",
           paramLocation: "neuron",
-          paramDisplay: "Simulation time",
+          paramDisplay: "Simulation time"
         },
         {
           paramKey: "cvode_tolerance",
           paramLocation: "neuron",
-          paramDisplay: "CVODE tolerance",
+          paramDisplay: "CVODE tolerance"
         },
         {
           paramKey: "v_init",
           paramLocation: "neuron",
-          paramDisplay: "Initial membrane voltage",
-        },
+          paramDisplay: "Initial membrane voltage"
+        }
       ],
 
       selectedVariable: "",
       selectedXParameter: {
         paramKey: "",
         paramLocation: "",
-        paramDisplay: "",
+        paramDisplay: ""
       },
       selectedYParameter: {
         paramKey: "",
         paramLocation: "",
-        paramDisplay: "",
+        paramDisplay: ""
       },
 
       isWaitingForInput: true,
@@ -262,7 +262,6 @@ export default {
 
       id: 0,
       datacollection: null,
-      //options: null,
       noResults: false,
       items: ["Amacrine cells", "Synapse cells"],
       selected: "Amacrine cells",
@@ -270,58 +269,20 @@ export default {
       options: {
         chart: {
           height: 350,
-          type: "heatmap",
+          type: "heatmap"
         },
-        series: [
-          {
-            name: "Series 1",
-            data: [
-              {
-                x: "W1",
-                y: 22,
-              },
-              {
-                x: "W2",
-                y: 29,
-              },
-              {
-                x: "W3",
-                y: 13,
-              },
-              {
-                x: "W4",
-                y: 32,
-              },
-            ],
-          },
-          {
-            name: "Series 2",
-            data: [
-              {
-                x: "W1",
-                y: 43,
-              },
-              {
-                x: "W2",
-                y: 43,
-              },
-              {
-                x: "W3",
-                y: 43,
-              },
-              {
-                x: "W4",
-                y: 43,
-              },
-            ],
-          },
-        ],
-        colors: ["#9C27B0"],
         title: {
-          text: "HeatMap Chart (Single color)",
+          text: "HeatMap Chart (Single color)"
         },
+        plotOptions: {
+          heatmap: {
+            colorScale: {
+              ranges: []
+            }
+          }
+        }
       },
-      chart: {},
+      chart: {}
     };
   },
   validations() {
@@ -329,12 +290,12 @@ export default {
       selectedVariable: { required },
       selectedXParameter: {
         required,
-        notEqual: not(sameAs("selectedYParameter")),
+        notEqual: not(sameAs("selectedYParameter"))
       },
       selectedYParameter: {
         required,
-        notEqual: not(sameAs("selectedXParameter")),
-      },
+        notEqual: not(sameAs("selectedXParameter"))
+      }
     };
   },
   watch: {
@@ -342,15 +303,7 @@ export default {
       if (!this.isWaitingForInput && !this.loading) {
         this.refreshHeatMapVariables();
       }
-    },
-    /*selected: {
-      handler() {
-        if (this.selected === "Synapse cells")
-          this.data = this.simulationResponse.plotData.synapseVecs;
-        else this.data = this.simulationResponse.plotData.amacVecs;
-        this.fillData();
-      },
-    },*/
+    }
   },
   computed: {
     ...mapState("simulation", ["currentHeatMapData"]),
@@ -394,18 +347,12 @@ export default {
         errors.push("X and Y must be different parameters");
       !this.$v.selectedYParameter.required && errors.push("Required field.");
       return errors;
-    },
+    }
   },
   mounted() {
-    //this.getCurrentMetrics();
-    //this.data = this.simulationResponse.plotData.amacVecs;
-    //this.id = 1;
-    //console.log(this.simulationResponse.plotData);
-    //this.fillData();
     this.loading = false;
   },
   methods: {
-    //fillData() {},
     getGraphOptions() {
       return {};
     },
@@ -418,7 +365,7 @@ export default {
         xParameter: this.selectedXParameter.paramKey,
         xParameterLocation: this.selectedXParameter.paramLocation,
         yParameter: this.selectedYParameter.paramKey,
-        yParameterLocation: this.selectedYParameter.paramLocation,
+        yParameterLocation: this.selectedYParameter.paramLocation
       };
       this.isWaitingForInput = false;
       this.loading = true;
@@ -429,53 +376,93 @@ export default {
       });
     },
     buildHeatMap() {
-      //console.log(this.currentHeatMapData);
       this.currentHeatMapData.sort((a, b) => a.ylabel - b.ylabel);
-      this.currentHeatMapData.map((value) => {
+      this.currentHeatMapData.map(value => {
         value.data.sort((a, b) => a.x - b.x);
       });
       this.options.title.text = this.heatmapTitle;
-      this.options.series = this.currentHeatMapData.map((value) => {
+      let totalValues = [];
+      this.options.series = this.currentHeatMapData.map(value => {
         return {
           name: this.selectedYParameter.paramKey + ": " + value.ylabel,
-          data: value.data.map((dataValue) => {
+          data: value.data.map(dataValue => {
+            let yVal =
+              dataValue.y[this.selectedVariable] !== undefined
+                ? dataValue.y[this.selectedVariable].reduce(
+                    (a, b) => a + b,
+                    0
+                  ) / dataValue.y[this.selectedVariable].length
+                : 0;
+
+            totalValues.push(yVal);
+
             return {
               x: this.selectedXParameter.paramKey + ": " + dataValue.x,
-              y:
-                dataValue.y[this.selectedVariable] !== undefined
-                  ? dataValue.y[this.selectedVariable].reduce(
-                      (a, b) => a + b,
-                      0
-                    ) / dataValue.y[this.selectedVariable].length
-                  : 0,
+              y: yVal
             };
-          }),
+          })
         };
       });
-      //console.log(this.options);
+
+      this.setMinAndMax(totalValues);
+
       this.chart = new ApexCharts(this.$refs.graph, this.options);
       this.chart.render();
     },
+    setMinAndMax(values) {
+      let min = Math.min.apply(Math, values);
+      let max = Math.max.apply(Math, values);
+
+      let step = (max - min) / 3;
+      let firstStep = min + step;
+      let secondStep = max - step;
+
+      this.options.plotOptions.heatmap.colorScale.ranges = [
+        {
+          from: min,
+          to: firstStep,
+          color: "#00A100",
+          name: "low"
+        },
+        {
+          from: firstStep,
+          to: secondStep,
+          color: "#128FD9",
+          name: "medium"
+        },
+        {
+          from: secondStep,
+          to: max,
+          color: "#FFB200",
+          name: "high"
+        }
+      ];
+    },
     refreshHeatMapVariables() {
-      this.options.series = this.currentHeatMapData.map((value) => {
+      let totalValues = [];
+      this.options.series = this.currentHeatMapData.map(value => {
         return {
           name: this.selectedYParameter.paramKey + ": " + value.ylabel,
-          data: value.data.map((dataValue) => {
+          data: value.data.map(dataValue => {
+            let yVal =
+              dataValue.y[this.selectedVariable] !== undefined
+                ? dataValue.y[this.selectedVariable].reduce(
+                    (a, b) => a + b,
+                    0
+                  ) / dataValue.y[this.selectedVariable].length
+                : 0;
+
+            totalValues.push(yVal);
             return {
               x: this.selectedXParameter.paramKey + ": " + dataValue.x,
-              y:
-                dataValue.y[this.selectedVariable] !== undefined
-                  ? dataValue.y[this.selectedVariable].reduce(
-                      (a, b) => a + b,
-                      0
-                    ) / dataValue.y[this.selectedVariable].length
-                  : 0,
+              y: yVal
             };
-          }),
+          })
         };
       });
-      //console.log(this.chart);
-      this.chart.updateSeries(this.options.series);
+
+      this.setMinAndMax(totalValues);
+      this.chart.updateOptions(this.options);
     },
     goBack() {
       this.$store.dispatch("simulation/flushHeatmapData").then(() => {
@@ -488,8 +475,8 @@ export default {
         this.loading = false;
         this.isWaitingForInput = true;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
