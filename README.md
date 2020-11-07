@@ -12,8 +12,8 @@ RetinaX: A web platform for simulation and analysis of a network model of direct
 
 ## Enviroment and requirements
 
-- **docker**. In order to build docker images
-- **docker-compose** In order to deploy a local enviroment
+- **docker**. In order to build docker images. (https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04 -> follow steps 1 and 2 of this tutorial)
+- **docker-compose** In order to deploy a local enviroment (https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-es -> make sure of install docker first)
 
 ## Deployment
 
@@ -29,7 +29,9 @@ Just run:
 ./build-docker.sh
 ```
 
-And the script will do the trick.
+And the script will do the trick. 
+
+Note: If you have problems or errors running the script, make sure of giving the proper permissions to it. (eg. running the command with "sudo" on linux)
 
 After deploying the platform, you can access to the Client web application at:
 
