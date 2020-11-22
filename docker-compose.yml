@@ -23,7 +23,7 @@ services:
     expose:
       - "8080"
     ports:
-      - "8080:8080"
+      - "8080:8081"
     volumes:
       - ./simulationMiddleware/target/simulatorMiddleware-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/ROOT.war
       - ./simulationMiddleware/target/simulatorMiddleware-0.0.1-SNAPSHOT:/usr/local/tomcat/webapps/ROOT
@@ -33,4 +33,4 @@ services:
     depends_on:
       - tomcatserver
     ports:
-      - "8181:80"
+      - "80:80"
