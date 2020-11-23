@@ -36,5 +36,5 @@ Note: If you have problems or errors running the script, make sure of giving the
 After deploying the platform, you can access to the Client web application at:
 
 ```
-http://{HOST}:8181
+http://{HOST}:80
 ```
